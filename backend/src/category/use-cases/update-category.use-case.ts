@@ -18,13 +18,16 @@ export class UpdateCategoryUseCase {
         throw error;
       }
 
-      await this.categoryRepository.updateCategory(id, data);
+      const updatedCategory = await this.categoryRepository.updateCategory(
+        id,
+        data,
+      );
 
       this.logger.log(
         `Category updated successfully!`,
         UpdateCategoryUseCase.name,
       );
-      return category;
+      return updatedCategory;
     } catch (err) {
       this.logger.error(err.message);
       throw err;

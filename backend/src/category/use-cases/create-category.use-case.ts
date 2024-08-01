@@ -11,9 +11,7 @@ export class CreateCategoryUseCase {
 
   async execute(data: CreateCategoryInput) {
     try {
-      const category = await this.categoryRepository.createCategory({
-        ...data,
-      });
+      const category = await this.categoryRepository.createCategory(data);
       this.logger.log(
         `Category created successfully!`,
         CreateCategoryUseCase.name,
