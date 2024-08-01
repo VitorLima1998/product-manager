@@ -1,8 +1,8 @@
 import { Logger, Module } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CategoryController } from './category.controller';
-import * as UseCases from './use-cases';
 import { CategoryRepository } from './repository/category.repository';
+import * as UseCases from './use-cases';
 
 const usecases = Object.values(UseCases);
 
