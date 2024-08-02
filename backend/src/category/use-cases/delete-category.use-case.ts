@@ -13,7 +13,6 @@ export class DeleteCategoryUseCase {
       const category = await this.categoryRepository.findCategoryById(id);
       if (!category) {
         const error = new Error(`Category not found!`);
-        this.logger.error(error.message);
         throw error;
       }
 

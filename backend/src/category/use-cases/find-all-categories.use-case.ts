@@ -13,7 +13,6 @@ export class FindAllCategoriesUseCase {
       const categories = await this.categoryRepository.findAllCategories();
       if (!categories) {
         const error = new NotFoundException(`No categories found!`);
-        this.logger.error(error.message);
         throw error;
       }
 

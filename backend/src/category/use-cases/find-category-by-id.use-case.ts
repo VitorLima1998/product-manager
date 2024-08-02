@@ -13,7 +13,6 @@ export class FindCategoryByIdUseCase {
       const category = await this.categoryRepository.findCategoryById(id);
       if (!category) {
         const error = new NotFoundException(`Category not found!`);
-        this.logger.error(error.message);
         throw error;
       }
 
