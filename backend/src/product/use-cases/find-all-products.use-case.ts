@@ -14,7 +14,7 @@ export class FindAllProductsUseCase {
       if (!products) {
         const error = new NotFoundException('No products found!');
         this.logger.error(error.message);
-        throw Error;
+        throw error;
       }
 
       this.logger.log('Products found!', FindAllProductsUseCase.name);
