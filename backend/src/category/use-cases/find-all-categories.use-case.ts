@@ -14,7 +14,7 @@ export class FindAllCategoriesUseCase {
       if (!categories) {
         const error = new NotFoundException(`No categories found!`);
         this.logger.error(error.message);
-        throw Error;
+        throw error;
       }
 
       this.logger.log(`Categories found!`, FindAllCategoriesUseCase.name);

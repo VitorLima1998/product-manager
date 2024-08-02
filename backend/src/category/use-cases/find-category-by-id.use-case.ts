@@ -14,7 +14,7 @@ export class FindCategoryByIdUseCase {
       if (!category) {
         const error = new NotFoundException(`Category not found!`);
         this.logger.error(error.message);
-        throw Error;
+        throw error;
       }
 
       this.logger.log(`Category found!`, FindCategoryByIdUseCase.name);
