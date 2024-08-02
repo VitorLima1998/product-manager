@@ -13,7 +13,6 @@ export class FindAllProductsUseCase {
       const products = await this.productRepository.findAllProducts();
       if (!products) {
         const error = new NotFoundException('No products found!');
-        this.logger.error(error.message);
         throw error;
       }
 
