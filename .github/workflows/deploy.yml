@@ -45,6 +45,6 @@ jobs:
         cat ~/.ssh/id_rsa
 
 
-    - name: Deploy to EC2
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@35.171.17.9 "docker pull public.ecr.aws/q9u6w8s4/product-manager:latest && docker run -d -p 80:3000 public.ecr.aws/q9u6w8s4/product-manager:latest"
+    # - name: Deploy to EC2
+    #   run: |
+    #     ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@35.171.17.9 "docker pull public.ecr.aws/q9u6w8s4/product-manager:latest && docker run -d -p 80:3000 public.ecr.aws/q9u6w8s4/product-manager:latest"
