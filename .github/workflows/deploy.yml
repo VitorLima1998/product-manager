@@ -40,4 +40,4 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest && docker run -d -p 80:3000 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest"
+        ssh -o StrictHostKeyChecking=no -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest && docker run -d -p 80:3000 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest"
