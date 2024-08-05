@@ -29,14 +29,14 @@ jobs:
 
     - name: Login to Amazon ECR
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/q9u6w8s4
 
     - name: Build and push Docker image
       run: |
         cd backend
-        docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest .
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
+        docker build -t public.ecr.aws/q9u6w8s4/product-manager:latest .
+        docker push public.ecr.aws/q9u6w8s4/product-manager:latest
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest && docker run -d -p 80:3000 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest"
+        ssh -o StrictHostKeyChecking=no -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull public.ecr.aws/q9u6w8s4/product-manager:latest && docker run -d -p 80:3000 public.ecr.aws/q9u6w8s4/product-manager:latest"
