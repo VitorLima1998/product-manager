@@ -1,4 +1,4 @@
-name: Deploy to AWS
+name: Deploy to EC2
 
 on:
   push:
@@ -13,23 +13,29 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
 
-    - name: Login to Amazon ECR
-      uses: aws-actions/amazon-ecr-login@v1
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: us-east-1
-
-    - name: Build and push Docker image
-      run: |
-        cd backend
-        docker build -t product-manager .
-        docker tag product-manager:latest <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
-        docker push <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
+        aws-region: us-east-1
 
     - name: Deploy to EC2
       run: |
-        ssh -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest && docker run -d -p 80:3000 <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest"
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /path/to/your/app
+          git pull origin master
+          docker-compose down
+          docker-compose up -d --build
+        EOF
