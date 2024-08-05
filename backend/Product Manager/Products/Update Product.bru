@@ -1,0 +1,18 @@
+meta {
+  name: Update Product
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/product/4a593250-2d44-458e-a828-7e1bc9d101aa
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name":"Epomaker Keyboard",
+    "price":350
+  }
+}
