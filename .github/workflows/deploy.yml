@@ -34,8 +34,7 @@ jobs:
     - name: Build and push Docker image
       run: |
         cd backend
-        docker build -t product-manager .
-        docker tag product-manager:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
+        docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest .
         docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
 
     - name: Deploy to EC2
