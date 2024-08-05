@@ -30,6 +30,6 @@ jobs:
         docker tag product-manager:latest <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
         docker push <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest
 
-    run: |
-    ssh -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest && docker run -d -p 80:3000 <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest"
-
+    - name: Deploy to EC2
+      run: |
+        ssh -i ~/ssh/product-manager-backend.pem ubuntu@35.171.17.9 "docker pull <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest && docker run -d -p 80:3000 <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/product-manager:latest"
